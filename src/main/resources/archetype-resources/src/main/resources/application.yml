@@ -1,0 +1,39 @@
+spring:
+  profiles:
+    active: prod
+  application:
+    name: ${name}
+    description: "-"
+    version: 0.0.1
+    jwt:
+      secret: TQczCdDxCAkbARkEYhXqDRSNe5qBV3S2jreQfKbQx86KKX66y52h8
+      timeToExpire:
+        token: 600
+        refreshToken: 86400
+  main:
+    lazy-initialization: true
+mybatis:
+  mapper-locations: classpath*:**/mappers/*Mapper.xml
+  type-aliases-package: ${package}.model.entities
+pagehelper:
+  helperDialect: postgresql
+  reasonable: true
+  supportMethodsArguments: true
+  params: count=countSql
+---
+spring:
+  profiles: dev
+  datasource:
+    url: jdbc:postgresql://localhost:5432/database?currentSchema=database
+    username: root
+    password: 123456
+logging:
+  level:
+    ${package}.mapper: trace
+---
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:postgresql://localhost:5432/database?currentSchema=database
+    username: root
+    password: 123456
